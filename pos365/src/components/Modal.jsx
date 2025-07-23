@@ -142,7 +142,7 @@ const Modal = ({
       const storedNotes = JSON.parse(localStorage.getItem("notes")) || {};
       setNote(storedNotes[tableName] || ""); // Load the note for the selected table
     }
-  }, [tableName]); // Runs when a new table is opened
+  }, [isOpen]); // Runs when a new table is opened
 
   useEffect(() => {
     if (!tableName) return;
@@ -172,7 +172,6 @@ const Modal = ({
 
   }, [note, tableName]);
 
-  const [showFull, setShowFull] = useState(false);
   const textareaRef = useRef(null);
   useEffect(() => {
     const textarea = textareaRef.current;

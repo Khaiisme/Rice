@@ -621,6 +621,7 @@ const App = () => {
         addOrderItem={addOrderItem}
         removeOrderItem={removeOrderItem}
         dishes={dishes}
+        
       />
     </div>
   );
