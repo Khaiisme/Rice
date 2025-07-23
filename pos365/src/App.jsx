@@ -420,7 +420,7 @@ const App = () => {
     const fetchOrders = () => {
       if (isModalOpen) return; // Don't fetch when modal is open
 
-      fetch('https://rice-restaurant.onrender.com/api/orders')
+      fetch('https://rice-t904.onrender.com/api/orders')
         .then(res => res.json())
         .then(data => {
           if (Array.isArray(data)) {
@@ -444,7 +444,7 @@ const App = () => {
     };
 
     const fetchNotes = () => {
-      fetch('https://rice-restaurant.onrender.com/api/notes')
+      fetch('https://rice-t904.onrender.com/api/notes')
         .then(res => res.json())
         .then(data => {
           const notesObject = {};
@@ -480,7 +480,7 @@ const App = () => {
   useEffect(() => {
     const checkBackend = async () => {
       try {
-        const res = await fetch('https://rice-restaurant.onrender.com/health');
+        const res = await fetch('https://rice-t904.onrender.com/health');
         if (res.ok) {
           const data = await res.json();
           if (data.db === 'connected') {
@@ -538,7 +538,7 @@ const App = () => {
       orders
     }));
     console.log("Payload to sync:", payload);
-    fetch('https://rice-restaurant.onrender.com/api/orders', {
+    fetch('https://rice-t904.onrender.com/api/orders', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
@@ -564,7 +564,7 @@ const App = () => {
       orders
     }));
 
-    fetch('https://rice-restaurant.onrender.com/api/orders', {
+    fetch('https://rice-t904.onrender.com/api/orders', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)

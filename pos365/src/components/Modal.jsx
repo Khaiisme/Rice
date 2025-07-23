@@ -155,7 +155,7 @@ const Modal = ({
         localStorage.setItem("notes", JSON.stringify(storedNotes));
       }
 
-      fetch('https://rice-restaurant.onrender.com/api/notes', {
+      fetch('https://rice-t904.onrender.com/api/notes', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ tableName, note: null }),
@@ -177,7 +177,7 @@ const Modal = ({
         localStorage.setItem("notes", JSON.stringify(storedNotes));
       }
 
-      fetch('https://rice-restaurant.onrender.com/api/notes', {
+      fetch('https://rice-t904.onrender.com/api/notes', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ tableName, note }),
