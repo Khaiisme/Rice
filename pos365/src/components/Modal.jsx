@@ -149,63 +149,40 @@ const Modal = ({
 
     const storedNotes = JSON.parse(localStorage.getItem("notes")) || {};
 
-    if (note.trim() === "") {
-      if (storedNotes[tableName]) {
-        delete storedNotes[tableName];
-        localStorage.setItem("notes", JSON.stringify(storedNotes));
-      }
+    // Always update localStorage
+    storedNotes[tableName] = note;
+    localStorage.setItem("notes", JSON.stringify(storedNotes));
 
-      fetch('https://rice-t904.onrender.com/api/notes', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ tableName, note: null }),
+    // Always send the note to backend
+    fetch('https://rice-t904.onrender.com/api/notes', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tableName, note }),
+    })
+      .then(response => {
+        if (!response.ok) throw new Error('Network response was not ok');
+        return response.json();
       })
-        .then(response => {
-          if (!response.ok) throw new Error('Network response was not ok');
-          return response.json();
-        })
-        .then(data => {
-          console.log('Note removed on backend:', data);
-        })
-        .catch(error => {
-          console.error('Error removing note on backend:', error);
-        });
-
-    } else {
-      if (storedNotes[tableName] !== note) {
-        storedNotes[tableName] = note;
-        localStorage.setItem("notes", JSON.stringify(storedNotes));
-      }
-
-      fetch('https://rice-t904.onrender.com/api/notes', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ tableName, note }),
+      .then(data => {
+        console.log('Note saved on backend:', data);
       })
-        .then(response => {
-          if (!response.ok) throw new Error('Network response was not ok');
-          return response.json();
-        })
-        .then(data => {
-          console.log('Note saved on backend:', data);
-        })
-        .catch(error => {
-          console.error('Error saving note on backend:', error);
-        });
-    }
+      .catch(error => {
+        console.error('Error saving note on backend:', error);
+      });
+
   }, [note, tableName]);
 
   const [showFull, setShowFull] = useState(false);
   const textareaRef = useRef(null);
   useEffect(() => {
-  const textarea = textareaRef.current;
-  if (!textarea) return;
+    const textarea = textareaRef.current;
+    if (!textarea) return;
 
-  requestAnimationFrame(() => {
-    textarea.style.height = 'auto'; // Reset
-    textarea.style.height = `${textarea.scrollHeight}px`; // Apply correct size
-  });
-}, [note,isOpen]);
+    requestAnimationFrame(() => {
+      textarea.style.height = 'auto'; // Reset
+      textarea.style.height = `${textarea.scrollHeight}px`; // Apply correct size
+    });
+  }, [note, isOpen]);
 
   return (
     isOpen && (
