@@ -140,9 +140,10 @@ const Modal = ({
   useEffect(() => {
     if (tableName) {
       const storedNotes = JSON.parse(localStorage.getItem("notes")) || {};
+      console.log("Stored notes:", storedNotes);
       setNote(storedNotes[tableName] || ""); // Load the note for the selected table
     }
-  }, [isOpen]); // Runs when a new table is opened
+  }, [tableName, isOpen]); // Runs when a new table is opened
 
   useEffect(() => {
     if (!tableName) return;
@@ -193,7 +194,6 @@ const Modal = ({
           {/* Close button (X) */}
           <button
             onClick={() => {
-              setShowFull(false);
               onClose();
             }}
             className="absolute mt-12 top-2 right-2 text-2xl font-bold text-white bg-black hover:text-gray-700"
